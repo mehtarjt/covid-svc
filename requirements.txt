@@ -19,7 +19,7 @@ python-dateutil==2.8.1
 pytz==2020.1
 regex==2020.5.7
 retrying==1.3.3
-RnDPackage==0.18
+RnDPackage==0.20
 six==1.14.0
 sqlparse==0.3.1
 toml==0.10.0
