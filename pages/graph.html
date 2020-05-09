@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+<h1>{{message}}</h1>
+<div style="width=900px; word-wrap=break-word;">
+    <code>
+    {% autoescape off %}
+        {{ jsonData }}
+    {% endautoescape %}
+    </code>
+</div>
+{% endblock %}

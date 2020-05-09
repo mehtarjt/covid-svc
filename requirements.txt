@@ -10,10 +10,15 @@ gunicorn==20.0.4
 isort==4.3.21
 lazy-object-proxy==1.4.3
 mccabe==0.6.1
+numpy==1.18.4
+pandas==1.0.3
 pathspec==0.8.0
+plotly==4.7.1
 pylint==2.5.2
+python-dateutil==2.8.1
 pytz==2020.1
 regex==2020.5.7
+retrying==1.3.3
 RnDPackage==0.18
 six==1.14.0
 sqlparse==0.3.1
