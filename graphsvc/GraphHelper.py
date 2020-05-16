@@ -1,4 +1,4 @@
-import RnDPackage.Datasets as ds
+import practicedatasets.Covid as ds
 import plotly.graph_objs as go
 
 

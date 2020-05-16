@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse
 import plotly.offline as opy
-import RnDPackage.Datasets as ds
+import practicedatasets.Covid as ds
 import pandas as pd
 from .GraphHelper import GetGraphData, GetGraphLayout
 import html
