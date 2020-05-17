@@ -1,11 +1,13 @@
 from django.shortcuts import render, HttpResponse
+from django.core.serializers.json import DjangoJSONEncoder
 import plotly.offline as opy
 import practicedatasets.Covid as ds
 import pandas as pd
-from .GraphHelper import GetGraphData, GetGraphLayout
+from .GraphHelper import GetGraphData, GetGraphLayout, GetGraphRestData
 import html
 from django.http import JsonResponse
 import urllib
+import json
 
 # Create your views here.
 
@@ -68,3 +70,11 @@ def CovidEmbeddedGraph(request):
     fig_div = opy.plot(graphInput, image_width="100%", image_height="100%", include_plotlyjs=False, output_type="div", auto_open=False,)
     graphHtml = {"graphHtml": fig_div}
     return JsonResponse(graphHtml, safe=False)
+
+
+def CovidGraphREST(request):
+    countries = request.GET.get("countries").split(",")
+    countries = [x.strip(" ") for x in countries]
+    graphData = GetGraphRestData(countries)
+    graphDataJson = json.dumps(graphData, cls=DjangoJSONEncoder)
+    return JsonResponse(graphDataJson, safe=False)

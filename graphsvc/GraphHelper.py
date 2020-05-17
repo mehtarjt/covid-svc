@@ -1,5 +1,7 @@
 import practicedatasets.Covid as ds
 import plotly.graph_objs as go
+import pandas as pd
+import datetime
 
 
 def GetGraphData(countryNames, includeConfirmed, includeDeaths, includeRecovered, isLogScale, isPerCapita):
@@ -28,9 +30,32 @@ def GetGraphData(countryNames, includeConfirmed, includeDeaths, includeRecovered
     return graphData
 
 
+def GetGraphRestData(countryNames):
+    # Get Covid Numpy Array from the self created shared package
+    allCountriesInfo = ds.CovidDataset().GetCovidNpArray()
+    # Get population info outside for loop to avoid opening and loading file multiple times
+    resultDict = {}
+    for i in range(len(countryNames)):
+        # Filter numpy array with the data for a specific country
+        countryInfo = allCountriesInfo[allCountriesInfo[:, 0] == countryNames[i]]
+        resultDict[countryNames[i] + "Confirmed"] = countryInfo[:, 2].tolist()
+        resultDict[countryNames[i] + "Deaths"] = countryInfo[:, 3].tolist()
+        resultDict[countryNames[i] + "Recovered"] = countryInfo[:, 4].tolist()
+        populationInfo = ds.PopulationDataSet().GetPopulationRawDataFrame()
+        AdjustValuesPerCapita(countryInfo, populationInfo)
+        resultDict[countryNames[i] + "Confirmed/mil"] = countryInfo[:, 2].tolist()
+        resultDict[countryNames[i] + "Deaths/mil"] = countryInfo[:, 3].tolist()
+        resultDict[countryNames[i] + "Recovered/mil"] = countryInfo[:, 4].tolist()
+
+    resultDict["xAxis"] = countryInfo[:, 1].tolist()
+    return resultDict
+
+
 def AdjustValuesPerCapita(allCountriesInfo, populationInfo):
     totalPopulation = GetCountryPopulationInMillions(allCountriesInfo[0, 0], populationInfo)
+    allCountriesInfo[:, 2] = allCountriesInfo[:, 2] / totalPopulation
     allCountriesInfo[:, 3] = allCountriesInfo[:, 3] / totalPopulation
+    allCountriesInfo[:, 4] = allCountriesInfo[:, 4] / totalPopulation
 
 
 def GetCountryPopulationInMillions(countryName, populationInfo):

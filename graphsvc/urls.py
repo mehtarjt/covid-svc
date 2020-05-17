@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Home, CovidGraph, CovidGraphAPI, CovidEmbeddedGraph, Countries
+from .views import Home, CovidGraph, CovidGraphAPI, CovidEmbeddedGraph, Countries, CovidGraphREST
 
 
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
     path("samplejson/", CovidGraphAPI, name="samplejson"),
     path("embgraph/", CovidEmbeddedGraph, name="embgraph"),
     path("countries/", Countries, name="countries"),
+    path("graphrest/", CovidGraphREST, name="graphrest"),
 ]
