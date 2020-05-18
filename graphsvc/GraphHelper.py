@@ -47,7 +47,7 @@ def GetGraphRestData(countryNames):
         resultDict[countryNames[i] + "Deaths/mil"] = countryInfo[:, 3].tolist()
         resultDict[countryNames[i] + "Recovered/mil"] = countryInfo[:, 4].tolist()
 
-    resultDict["xAxis"] = countryInfo[:, 1].tolist()
+    resultDict["Dates"] = countryInfo[:, 1].tolist()
     return resultDict
 
 
